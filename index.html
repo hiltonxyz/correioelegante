@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Correio Romântico 💌</title>
+  <style>
+   body {
+  font-family: 'Georgia', serif;
+  background: #fff0f5;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+header {
+  background-color: #ff69b4;
+  color: white;
+  padding: 1rem;
+}
+
+.container {
+  padding: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.card {
+  border: 2px solid #ff69b4;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem auto;
+  max-width: 500px;
+  background: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.premium {
+  background: linear-gradient(to right, #ffb6c1, #ffe4e1);
+  border: 3px dashed #d87093;
+  font-weight: bold;
+}
+
+textarea, input {
+  width: 90%;
+  max-width: 100%;
+  padding: 10px;
+  margin: 1rem 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+button {
+  background: #ff69b4;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  width: auto;
+}
+
+button:hover {
+  background-color: #e55a9a;
+}
+
+.pix-info {
+  background: #ffe4e1;
+  margin-top: 1rem;
+  padding: 1rem;
+  display: none;
+  border: 1px dashed #d87093;
+  word-wrap: break-word;
+}
+
+.link-gerado {
+  background: #fff0f5;
+  padding: 1rem;
+  border: 1px solid #d87093;
+  margin-top: 1rem;
+  word-break: break-word;
+}
+
+.carta-romantica, .carta-premium-estilo {
+  background: #fff0f5;
+  border: 2px dotted #ff69b4;
+  margin: 1rem auto;
+  padding: 1.5rem;
+  max-width: 600px;
+  border-radius: 12px;
+  font-family: 'Cursive', sans-serif;
+  color: #b03060;
+  text-align: left;
+  animation: fadeInUp 0.8s ease-out;
+  word-wrap: break-word;
+  box-sizing: border-box;
+}
+
+.carta-premium-estilo {
+  background: linear-gradient(135deg, #fff0f5, #ffe4e1);
+  border: 3px dashed #ff69b4;
+  box-shadow: 0 0 15px rgba(255,105,180, 0.4);
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media query para telas menores que 600px (celulares) */
+@media screen and (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  header {
+    font-size: 1.4rem;
+    padding: 1rem 0.5rem;
+  }
+
+  .container {
+    padding: 1rem 0.5rem;
+    max-width: 100%;
+  }
+
+  .card {
+    max-width: 100%;
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+
+  textarea, input {
+    width: 100%;
+    font-size: 1rem;
+    margin: 0.7rem 0;
+  }
+
+  button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .pix-info {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+
+  .link-gerado {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+
+  .carta-romantica, .carta-premium-estilo {
+    max-width: 100%;
+    font-size: 1rem;
+    padding: 1rem;
+  }
+}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>💌 Correio Romântico</h1>
+  <p>Envie uma carta romântica e compartilhe por link após o pagamento</p>
+</header>
+
+<div class="container" id="formContainer">
+  <div class="card">
+    <h2>Carta Simples - R$2,00</h2>
+    <textarea id="cartaSimples" placeholder="Escreva sua carta simples..."></textarea>
+    <button onclick="enviarCarta('simples')">Enviar Carta</button>
+  </div>
+
+  <div class="card premium">
+    <h2>✨ Carta Premium - R$5,00 ✨</h2>
+    <textarea id="cartaPremium" placeholder="Escreva sua carta premium..."></textarea>
+    <button onclick="enviarCarta('premium')">Enviar Carta</button>
+  </div>
+
+  <div class="pix-info" id="pixInfo">
+    <h3>🔒 Faça o PIX de <span id="valorPix"></span> para:</h3>
+    <p><strong>amivocliente@gmail.com</strong></p>
+    <div class="link-gerado" id="linkCarta"></div>
+    <p style="color: #a52a2a;"><strong>Após o pagamento, aguarde a liberação da carta pelo administrador.</strong></p>
+  </div>
+
+  <div style="margin-top: 3rem;">
+    <h3>🔐 Acesso do Administrador</h3>
+    <input type="password" id="senhaAdmin" placeholder="Senha do admin" />
+    <button onclick="acessarAdmin()">Acessar Cartas</button>
+  </div>
+</div>
+
+<div class="container" id="cartasAdmin" style="display:none;">
+  <h2>📂 Cartas Recebidas</h2>
+  <div id="listaCartas"></div>
+  <button onclick="voltar()">⬅ Voltar</button>
+</div>
+
+<div class="container" id="cartaExibida" style="display:none;">
+  <h2>💖 Carta Romântica</h2>
+  <div id="conteudoCarta"></div>
+  <button onclick="voltar()">⬅ Voltar</button>
+</div>
+
+<script>
+  function gerarIDCarta() {
+    return Math.random().toString(36).substr(2, 8);
+  }
+
+  function enviarCarta(tipo) {
+    const texto = tipo === 'simples'
+      ? document.getElementById('cartaSimples').value.trim()
+      : document.getElementById('cartaPremium').value.trim();
+
+    if (!texto) {
+      alert('Por favor, escreva sua carta.');
+      return;
+    }
+
+    const valor = tipo === 'simples' ? 'R$2,00' : 'R$5,00';
+    const id = gerarIDCarta();
+    const link = `${window.location.origin}${window.location.pathname}?carta=${id}`;
+
+    const carta = {
+      id,
+      tipo,
+      conteudo: texto,
+      data: new Date().toLocaleString(),
+      pago: false
+    };
+
+    const cartas = JSON.parse(localStorage.getItem('cartas') || '[]');
+    cartas.push(carta);
+    localStorage.setItem('cartas', JSON.stringify(cartas));
+
+    document.getElementById('valorPix').innerText = valor;
+    document.getElementById('pixInfo').style.display = 'block';
+    document.getElementById('linkCarta').innerHTML = `<strong>Link para sua carta:</strong><br><a href="${link}" target="_blank">${link}</a>`;
+
+    alert('📨 Carta criada! Faça o PIX e aguarde a liberação da carta pelo administrador.');
+  }
+
+  function acessarAdmin() {
+    const senha = document.getElementById('senhaAdmin').value;
+    if (senha !== 'minhasenha123') {
+      alert('Senha incorreta!');
+      return;
+    }
+
+    const container = document.getElementById('listaCartas');
+    const cartas = JSON.parse(localStorage.getItem('cartas') || '[]');
+    container.innerHTML = '';
+
+    cartas.forEach((carta, i) => {
+      const div = document.createElement('div');
+      div.className = carta.tipo === 'premium' ? 'carta-premium-estilo' : 'carta-romantica';
+      div.innerHTML = `
+        <p><strong>Tipo:</strong> ${carta.tipo}</p>
+        <p><strong>Data:</strong> ${carta.data}</p>
+        <p><strong>Status:</strong> ${carta.pago ? '✅ Liberada' : '⏳ Aguardando pagamento'}</p>
+        <p><strong>Link:</strong> <a href="?carta=${carta.id}" target="_blank">Ver Carta</a></p>
+        <blockquote>${carta.conteudo}</blockquote>
+        ${!carta.pago ? `<button onclick="liberarCarta(${i})">Liberar Carta</button>` : ''}
+      `;
+      container.appendChild(div);
+    });
+
+    document.getElementById('formContainer').style.display = 'none';
+    document.getElementById('cartasAdmin').
+style.display = 'block';
+}
+
+function liberarCarta(index) {
+const cartas = JSON.parse(localStorage.getItem('cartas') || '[]');
+cartas[index].pago = true;
+localStorage.setItem('cartas', JSON.stringify(cartas));
+acessarAdmin();
+}
+
+function voltar() {
+document.getElementById('formContainer').style.display = 'block';
+document.getElementById('cartasAdmin').style.display = 'none';
+document.getElementById('cartaExibida').style.display = 'none';
+document.getElementById('senhaAdmin').value = '';
+}
+
+function exibirCartaPorID(id) {
+const cartas = JSON.parse(localStorage.getItem('cartas') || '[]');
+const carta = cartas.find(c => c.id === id);
+if (!carta) return;
+if (!carta.pago) {
+  alert('⏳ Esta carta ainda não foi liberada pelo administrador. Aguarde a confirmação do pagamento.');
+  return;
+}
+
+document.getElementById('formContainer').style.display = 'none';
+document.getElementById('cartaExibida').style.display = 'block';
+
+const html = carta.tipo === 'premium' 
+  ? `<div class="carta-premium-estilo">
+      <p>✨💖 <strong>Carta Premium</strong> 💖✨</p>
+      <p><em>${carta.data}</em></p>
+      <blockquote>🌹 "${carta.conteudo}" 💘</blockquote>
+      <p style="text-align: right;">💌 Com carinho anônimo... 💞</p>
+    </div>`
+  : `<div class="carta-romantica">
+      <p><strong>Tipo:</strong> Simples</p>
+      <p><strong>Data:</strong> ${carta.data}</p>
+      <blockquote>"${carta.conteudo}"</blockquote>
+    </div>`;
+
+document.getElementById('conteudoCarta').innerHTML = html;
+}
+
+window.onload = function () {
+const params = new URLSearchParams(window.location.search);
+const id = params.get('carta');
+if (id) {
+exibirCartaPorID(id);
+}
+}
+</script>
+
+</body> </html> 
