@@ -4,339 +4,719 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Correio Romântico 💌</title>
-  <style>
-   body {
-  font-family: 'Georgia', serif;
-  background: #fff0f5;
+ <style>
+  :root {
+  --rosa-claro: #ffe4ec;
+  --rosa-medio: #ffb6c1;
+  --rosa-escuro: #d84f79;
+  --dourado: #ffd700;
+  --cinza-claro: #f9f9f9;
+  --cinza: #e0e0e0;
+  --vermelho: #b22222;
+  --texto: #333;
+  --fonte: 'Segoe UI', sans-serif;
+}
+
+body {
+  font-family: var(--fonte);
+  background: var(--rosa-claro);
   margin: 0;
   padding: 0;
-  text-align: center;
+  color: var(--texto);
 }
 
 header {
-  background-color: #ff69b4;
-  color: white;
-  padding: 1rem;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  background: linear-gradient(to right, var(--rosa-medio), var(--rosa-escuro));
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin: 0.2rem 0;
+}
+
+header p {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
 }
 
 .container {
-  padding: 2rem;
-  max-width: 700px;
-  margin: 0 auto;
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem 1rem;
 }
 
 .card {
-  border: 2px solid #ff69b4;
-  border-radius: 10px;
-  padding: 1rem;
-  margin: 1rem auto;
-  max-width: 500px;
-  background: white;
+  background: #fff;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.01);
+}
+
+.card h2 {
+  color: var(--rosa-escuro);
+  margin-bottom: 1rem;
+}
+
+.card.premium {
+  border: 2px dashed var(--dourado);
+  background: #fffbea;
+}
+
+input[type="text"],
+textarea {
   width: 100%;
-  box-sizing: border-box;
-}
-
-.premium {
-  background: linear-gradient(to right, #ffb6c1, #ffe4e1);
-  border: 3px dashed #d87093;
-  font-weight: bold;
-}
-
-textarea, input {
-  width: 90%;
-  max-width: 100%;
-  padding: 10px;
-  margin: 1rem 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 0.9rem;
+  margin: 0.7rem 0 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--cinza);
+  background: var(--cinza-claro);
+  transition: border 0.3s;
   font-size: 1rem;
-  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: var(--rosa-escuro);
+  outline: none;
+}
+
+textarea {
   resize: vertical;
+  min-height: 120px;
 }
 
 button {
-  background: #ff69b4;
-  color: white;
+  background: var(--rosa-escuro);
+  color: #fff;
   border: none;
-  padding: 0.7rem 1.5rem;
-  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  width: auto;
+  transition: background 0.3s ease;
 }
 
 button:hover {
-  background-color: #e55a9a;
+  background: #b63a64;
 }
 
 .pix-info {
-  background: #ffe4e1;
-  margin-top: 1rem;
-  padding: 1rem;
-  display: none;
-  border: 1px dashed #d87093;
-  word-wrap: break-word;
+  margin-top: 2.5rem;
+  background-color: #fff5f0;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 6px solid var(--rosa-escuro);
+  animation: fadeIn 0.5s ease-in;
+}
+
+.pix-info h3 {
+  margin-top: 0;
 }
 
 .link-gerado {
-  background: #fff0f5;
-  padding: 1rem;
-  border: 1px solid #d87093;
-  margin-top: 1rem;
+  margin: 1rem 0;
   word-break: break-word;
+  background: #f2f2f2;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  border: 1px dashed var(--rosa-medio);
 }
 
-.carta-romantica, .carta-premium-estilo {
-  background: #fff0f5;
-  border: 2px dotted #ff69b4;
-  margin: 1rem auto;
-  padding: 1.5rem;
-  max-width: 600px;
+.atencao {
+  color: var(--vermelho);
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.admin-acesso {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+#listaCartas > div {
+  background: #ffffff;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  border-left: 5px solid var(--rosa-escuro);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+#conteudoCarta {
+  background: #fff;
+  padding: 2rem;
   border-radius: 12px;
-  font-family: 'Cursive', sans-serif;
-  color: #b03060;
-  text-align: left;
-  animation: fadeInUp 0.8s ease-out;
-  word-wrap: break-word;
-  box-sizing: border-box;
-}
-
-.carta-premium-estilo {
-  background: linear-gradient(135deg, #fff0f5, #ffe4e1);
-  border: 3px dashed #ff69b4;
-  box-shadow: 0 0 15px rgba(255,105,180, 0.4);
-  font-size: 1.2em;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  font-size: 1.1rem;
   line-height: 1.6;
+  margin-bottom: 1.5rem;
 }
 
-@keyframes fadeInUp {
-  0% {
+a {
+  color: var(--rosa-escuro);
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.carta-romantica {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #fff0f5, #ffe4ec);
+  overflow: hidden;
+  padding-top: 2rem;
+}
+
+.envelope {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 700px;
+  margin: auto;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  animation: zoomIn 0.6s ease-out;
+}
+
+.carta-estilo {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  font-family: 'Georgia', serif;
+  color: #a52a2a;
+  background: #fff8f8;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.95);
     opacity: 0;
-    transform: translateY(30px);
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Corações caindo */
+.chuva-coracoes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.chuva-coracoes::before {
+  content: '  ';
+  font-size: 2rem;
+  position: absolute;
+  animation: coracoes 12s linear infinite;
+  white-space: nowrap;
+}
+
+@keyframes coracoes {
+  0% {
+    transform: translateY(-10%) translateX(0);
+    opacity: 1;
   }
   100% {
-    opacity: 1;
-    transform: translateY(0);
+    transform: translateY(110vh) translateX(10px);
+    opacity: 0;
   }
 }
 
-/* Media query para telas menores que 600px (celulares) */
-@media screen and (max-width: 600px) {
-  body {
-    padding: 10px;
-  }
+/* Geração de múltiplos corações com JS */
+.heart {
+  position: fixed;
+  top: -30px;
+  font-size: 1.8rem;
+  animation: cair 5s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+  color: #ff4d6d;
+}
 
-  header {
-    font-size: 1.4rem;
-    padding: 1rem 0.5rem;
-  }
-
-  .container {
-    padding: 1rem 0.5rem;
-    max-width: 100%;
-  }
-
-  .card {
-    max-width: 100%;
-    margin: 1rem 0;
-    padding: 1rem;
-  }
-
-  textarea, input {
-    width: 100%;
-    font-size: 1rem;
-    margin: 0.7rem 0;
-  }
-
-  button {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.2rem;
-  }
-
-  .pix-info {
-    font-size: 0.9rem;
-    padding: 0.8rem;
-  }
-
-  .link-gerado {
-    font-size: 0.9rem;
-    padding: 0.8rem;
-  }
-
-  .carta-romantica, .carta-premium-estilo {
-    max-width: 100%;
-    font-size: 1rem;
-    padding: 1rem;
+@keyframes cair {
+  to {
+    transform: translateY(100vh);
+    opacity: 0;
   }
 }
-  </style>
+/* 💗 Fundo degradê da página */
+body {
+  background: linear-gradient(to bottom right, #fff0f5, #ffe4ec);
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* 💕 Corações caindo em todo o site */
+.chuva-coracoes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.heart {
+  position: fixed;
+  top: -30px;
+  font-size: 1.5rem;
+  animation: cair 6s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+  color: #ff4d6d;
+}
+
+@keyframes cair {
+  to {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* ✨ Melhorias no header */
+header {
+  background: linear-gradient(to right, #ffb6c1, #ff69b4);
+  color: white;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+header h1 {
+  font-size: 2.7rem;
+  margin: 0.5rem 0;
+  font-weight: bold;
+}
+
+header h2 {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+header p {
+  font-size: 1.1rem;
+  margin-top: 0.8rem;
+}
+
+/* 💌 Cartões principais */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.card {
+  background: #fff;
+  padding: 1.8rem;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  margin: 2rem 0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #d4376c;
+}
+
+.card.premium {
+  border: 2px dashed gold;
+  background: #fffbea;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 1rem;
+  margin: 0.7rem 0 1.2rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #d4376c;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* 🎀 Botões */
+button {
+  background: #d4376c;
+  color: #fff;
+  border: none;
+  padding: 0.9rem 1.7rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #a82f57;
+}
+
+.pix-info {
+  margin-top: 2rem;
+  background: #fff6f6;
+  padding: 1.5rem;
+  border-left: 5px solid #d4376c;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.link-gerado {
+  background: #f9f9f9;
+  padding: 0.7rem;
+  margin: 1rem 0;
+  border-radius: 6px;
+  border: 1px dashed #d4376c;
+  word-wrap: break-word;
+}
+
+.atencao {
+  color: #b22222;
+  font-weight: bold;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+.card.premium {
+  background: linear-gradient(to bottom right, #fffbea, #fff5cc);
+  border: 2px solid #ffd700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card.premium:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+}
+
+.card.premium h2 {
+  color: #b8860b;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.card.premium button {
+  background: linear-gradient(to right, #ffd700, #ffcc00);
+  color: #4b3900;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
+.card.premium button:hover {
+  background: linear-gradient(to right, #ffea00, #fdd835);
+  color: #3e3200;
+}
+
+.premium-label {
+  position: absolute;
+  top: -10px;
+  right: -30px;
+  background: #ffd700;
+  color: #fff;
+  font-weight: bold;
+  padding: 0.4rem 1rem;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 0.9rem;
+  z-index: 1;
+}
+/* 🌸 Campos de texto mais suaves e elegantes */
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  border: 1px solid #e5c4cb;
+  background: #fffafc;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(255, 192, 203, 0.1);
+  transition: all 0.3s ease;
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: #c88a9f;
+  font-style: italic;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #d4376c;
+  background: #fff0f6;
+  box-shadow: 0 0 8px rgba(212, 55, 108, 0.3);
+  outline: none;
+  transform: scale(1.01);
+}
+
+/* 📝 Labels opcionais (melhor sem usar placeholders sozinhos) */
+label {
+  display: block;
+  font-weight: 600;
+  color: #a64868;
+  margin-bottom: 0.3rem;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+ </style>
 </head>
 <body>
+  <body>
+  <div class="chuva-coracoes"></div>
 
-<header>
-  <h1>💌 Correio Elegante</h1>
-  <h1>Do 3° Informatica 👩‍💻</h1>
-  <p>Envie uma carta romântica e compartilhe por link após o pagamento</p>
-</header>
+  <header>...</header>
+  <main class="container" id="formContainer">
+    ...
+  </main>
+  ...
+</body>
 
-<div class="container" id="formContainer">
-  <div class="card">
-    <h2>Carta Simples - R$2,00</h2>
-    <textarea id="cartaSimples" placeholder="Escreva sua carta simples..."></textarea>
-    <button onclick="enviarCarta('simples')">Enviar Carta</button>
-  </div>
+  <header>
+    <h1>💌 Correio Elegante</h1>
+    <h2>Do 3° Informática 👩‍💻</h2>
+    <p>Envie uma carta romântica e compartilhe por link após o pagamento</p>
+  </header>
 
-  <div class="card premium">
-    <h2>✨ Carta Premium - R$5,00 ✨</h2>
-    <textarea id="cartaPremium" placeholder="Escreva sua carta premium..."></textarea>
-    <button onclick="enviarCarta('premium')">Enviar Carta</button>
-  </div>
+  <main class="container" id="formContainer">
+   <div class="card">
+  <h2>Carta Simples - R$2,00</h2>
+  
+  <label for="destinatarioSimples">Destinatário:</label>
+  <input type="text" id="destinatarioSimples" placeholder="Digite o nome..." />
 
-  <div class="pix-info" id="pixInfo">
-    <h3>🔒 Faça o PIX de <span id="valorPix"></span> para:</h3>
-    <p><strong>amivocliente@gmail.com</strong></p>
-    <div class="link-gerado" id="linkCarta"></div>
-    <p style="color: #a52a2a;"><strong>Após o pagamento, aguarde a liberação da carta pelo administrador.</strong></p>
-  </div>
+  <label for="cartaSimples">Mensagem:</label>
+  <textarea id="cartaSimples" placeholder="Escreva sua carta simples..."></textarea>
 
-  <div style="margin-top: 3rem;">
-    <h3>🔐 Acesso do Administrador</h3>
-    <input type="password" id="senhaAdmin" placeholder="Senha do admin" />
-    <button onclick="acessarAdmin()">Acessar Cartas</button>
-  </div>
+  <button onclick="enviarCarta('simples')">Enviar Carta</button>
 </div>
 
-<div class="container" id="cartasAdmin" style="display:none;">
-  <h2>📂 Cartas Recebidas</h2>
-  <div id="listaCartas"></div>
-  <button onclick="voltar()">⬅ Voltar</button>
-</div>
+    <section class="card premium">
+  <div class="premium-label">✨ PREMIUM ✨</div>
+  <h2>💎 Carta Premium - R$5,00</h2>
+  <label for="destinatarioPremium">Destinatário:</label>
+  <input type="text" id="destinatarioPremium" placeholder="Para quem é essa carta?" required />
 
-<div class="container" id="cartaExibida" style="display:none;">
-  <h2>💖 Carta Romântica</h2>
-  <div id="conteudoCarta"></div>
-  <button onclick="voltar()">⬅ Voltar</button>
-</div>
+  <label for="cartaPremium">Sua carta:</label>
+  <textarea id="cartaPremium" placeholder="Escreva sua carta premium..." required></textarea>
+
+  <button onclick="enviarCarta('premium')">💌 Enviar Carta Premium</button>
+</section>
+
+    <section class="pix-info" id="pixInfo" style="display: none;">
+      <h3>🔒 Faça o PIX de <span id="valorPix"></span> para:</h3>
+      <p><strong>amivocliente@gmail.com</strong></p>
+      <div class="link-gerado" id="linkCarta"></div>
+      <button onclick="copiarLink()">📋 Copiar Link</button>
+      <p class="atencao"><strong>Após o pagamento, aguarde a liberação da carta pelo administrador.</strong></p>
+    </section>
+
+    <section class="admin-acesso">
+      <h3>🔐 Acesso do Administrador</h3>
+      <button onclick="acessarAdmin()">Acessar Cartas</button>
+    </section>
+  </main>
+
+  <section class="container" id="cartasAdmin" style="display: none;">
+    <h2>📂 Cartas Recebidas</h2>
+    <div id="listaCartas"></div>
+    <button onclick="voltar()">⬅ Voltar</button>
+  </section>
+
+  <section class="container carta-romantica" id="cartaExibida" style="display: none;">
+  <div class="chuva-coracoes"></div>
+  <div class="envelope">
+    <h2>💖 Carta Romântica</h2>
+    <div id="conteudoCarta" class="carta-estilo"></div>
+    <button onclick="voltar()">⬅ Voltar</button>
+  </div>
+</section>
 
 <script>
-  function gerarIDCarta() {
-    return Math.random().toString(36).substr(2, 8);
+  let cartas = [];
+
+function enviarCarta(tipo) {
+  const destinatario = document.getElementById(`destinatario${capitalize(tipo)}`).value.trim();
+  const conteudo = document.getElementById(`carta${capitalize(tipo)}`).value.trim();
+
+  if (!destinatario || !conteudo) {
+    alert("Por favor, preencha todos os campos.");
+    return;
   }
 
-  function enviarCarta(tipo) {
-    const texto = tipo === 'simples'
-      ? document.getElementById('cartaSimples').value.trim()
-      : document.getElementById('cartaPremium').value.trim();
+  const preco = tipo === 'premium' ? 5 : 2;
+  const id = Date.now().toString(36);
+  const link = `${window.location.href}?carta=${id}`;
 
-    if (!texto) {
-      alert('Por favor, escreva sua carta.');
-      return;
-    }
+  cartas.push({ id, destinatario, conteudo, tipo, link });
 
-    const valor = tipo === 'simples' ? 'R$2,00' : 'R$5,00';
-    const id = gerarIDCarta();
-    const link = `${window.location.origin}${window.location.pathname}?carta=${id}`;
-
-    const carta = {
-      id,
-      tipo,
-      conteudo: texto,
-      data: new Date().toLocaleString(),
-      pago: false
-    };
-
-    const cartas = JSON.parse(localStorage.getItem('cartas') || '[]');
-    cartas.push(carta);
-    localStorage.setItem('cartas', JSON.stringify(cartas));
-
-    document.getElementById('valorPix').innerText = valor;
-    document.getElementById('pixInfo').style.display = 'block';
-    document.getElementById('linkCarta').innerHTML = `<strong>Link para sua carta:</strong><br><a href="${link}" target="_blank">${link}</a>`;
-
-    alert('📨 Carta criada! Faça o PIX e aguarde a liberação da carta pelo administrador.');
-  }
-
-  function acessarAdmin() {
-    const senha = document.getElementById('senhaAdmin').value;
-    if (senha !== 'minhasenha123') {
-      alert('Senha incorreta!');
-      return;
-    }
-
-    const container = document.getElementById('listaCartas');
-    const cartas = JSON.parse(localStorage.getItem('cartas') || '[]');
-    container.innerHTML = '';
-
-    cartas.forEach((carta, i) => {
-      const div = document.createElement('div');
-      div.className = carta.tipo === 'premium' ? 'carta-premium-estilo' : 'carta-romantica';
-      div.innerHTML = `
-        <p><strong>Tipo:</strong> ${carta.tipo}</p>
-        <p><strong>Data:</strong> ${carta.data}</p>
-        <p><strong>Status:</strong> ${carta.pago ? '✅ Liberada' : '⏳ Aguardando pagamento'}</p>
-        <p><strong>Link:</strong> <a href="?carta=${carta.id}" target="_blank">Ver Carta</a></p>
-        <blockquote>${carta.conteudo}</blockquote>
-        ${!carta.pago ? `<button onclick="liberarCarta(${i})">Liberar Carta</button>` : ''}
-      `;
-      container.appendChild(div);
-    });
-
-    document.getElementById('formContainer').style.display = 'none';
-    document.getElementById('cartasAdmin').
-style.display = 'block';
+  document.getElementById("valorPix").textContent = `R$${preco.toFixed(2)}`;
+  document.getElementById("linkCarta").innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
+  document.getElementById("pixInfo").style.display = "block";
 }
 
-function liberarCarta(index) {
-const cartas = JSON.parse(localStorage.getItem('cartas') || '[]');
-cartas[index].pago = true;
-localStorage.setItem('cartas', JSON.stringify(cartas));
-acessarAdmin();
+function copiarLink() {
+  const texto = document.getElementById("linkCarta").innerText;
+  navigator.clipboard.writeText(texto).then(() => {
+    alert("Link copiado com sucesso!");
+  });
+}
+
+function acessarAdmin() {
+  document.getElementById("formContainer").style.display = "none";
+  document.getElementById("cartasAdmin").style.display = "block";
+
+  const lista = document.getElementById("listaCartas");
+  lista.innerHTML = '';
+
+  if (cartas.length === 0) {
+    lista.innerHTML = "<p>Nenhuma carta enviada ainda.</p>";
+    return;
+  }
+
+  cartas.forEach(carta => {
+    const div = document.createElement("div");
+    div.className = "carta-lista";
+    div.innerHTML = `
+      <p><strong>Para:</strong> ${carta.destinatario}</p>
+      <p><strong>Tipo:</strong> ${capitalize(carta.tipo)}</p>
+      <button onclick="exibirCarta('${carta.id}')">📖 Ver Carta</button>
+    `;
+    lista.appendChild(div);
+  });
+}
+
+function exibirCarta(id) {
+  const carta = cartas.find(c => c.id === id);
+  if (carta) {
+    document.getElementById("cartasAdmin").style.display = "none";
+    document.getElementById("cartaExibida").style.display = "block";
+    document.getElementById("conteudoCarta").innerHTML = `
+      <p><strong>Para:</strong> ${carta.destinatario}</p>
+      <p>${carta.conteudo}</p>
+    `;
+  }
 }
 
 function voltar() {
-document.getElementById('formContainer').style.display = 'block';
-document.getElementById('cartasAdmin').style.display = 'none';
-document.getElementById('cartaExibida').style.display = 'none';
-document.getElementById('senhaAdmin').value = '';
+  document.getElementById("cartaExibida").style.display = "none";
+  document.getElementById("cartasAdmin").style.display = "none";
+  document.getElementById("formContainer").style.display = "block";
 }
 
-function exibirCartaPorID(id) {
-const cartas = JSON.parse(localStorage.getItem('cartas') || '[]');
-const carta = cartas.find(c => c.id === id);
-if (!carta) return;
-if (!carta.pago) {
-  alert('⏳ Esta carta ainda não foi liberada pelo administrador. Aguarde a confirmação do pagamento.');
-  return;
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+// Geração de corações caindo
+function soltarCoracoes() {
+  const carta = document.getElementById('cartaExibida');
+
+  const intervalo = setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.textContent = "💖    💌";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+    carta.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
+  }, 300);
+
+  // Parar após 10 segundos
+  setTimeout(() => clearInterval(intervalo), 10000);
 }
 
-document.getElementById('formContainer').style.display = 'none';
-document.getElementById('cartaExibida').style.display = 'block';
+// Chamar ao exibir carta
+function exibirCarta(id) {
+  const carta = cartas.find(c => c.id === id);
+  if (carta) {
+    document.getElementById("cartasAdmin").style.display = "none";
+    document.getElementById("cartaExibida").style.display = "block";
+    document.getElementById("conteudoCarta").innerHTML = `
+      <p><strong>Para:</strong> ${carta.destinatario}</p>
+      <p>${carta.conteudo}</p>
+    `;
+    soltarCoracoes(); // 🌟 Ativa os corações caindo
+  }
+}
+// Corações caindo também na página principal
+function coracoesIniciais() {
+  const chuva = document.querySelector('.chuva-coracoes');
 
-const html = carta.tipo === 'premium' 
-  ? `<div class="carta-premium-estilo">
-      <p>✨💖 <strong>Carta Premium</strong> 💖✨</p>
-      <p><em>${carta.data}</em></p>
-      <blockquote>🌹 "${carta.conteudo}" 💘</blockquote>
-      <p style="text-align: right;">💌 Com carinho anônimo... 💞</p>
-    </div>`
-  : `<div class="carta-romantica">
-      <p><strong>Tipo:</strong> Simples</p>
-      <p><strong>Data:</strong> ${carta.data}</p>
-      <blockquote>"${carta.conteudo}"</blockquote>
-    </div>`;
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+    chuva.appendChild(heart);
 
-document.getElementById('conteudoCarta').innerHTML = html;
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
+  }, 300);
 }
 
-window.onload = function () {
-const params = new URLSearchParams(window.location.search);
-const id = params.get('carta');
-if (id) {
-exibirCartaPorID(id);
-}
-}
+// Inicia ao carregar a página
+window.onload = coracoesIniciais;
+
 </script>
-
-</body> </html> 
+</body>
+</html>
