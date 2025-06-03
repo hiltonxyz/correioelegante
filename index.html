@@ -512,6 +512,56 @@ label {
   margin-top: 1rem;
   font-size: 0.95rem;
 }
+/* Estilo do Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content p {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.modal-content button {
+  background-color: #d84f79;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.modal-content button:hover {
+  background-color: #b03b63;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
 
  </style>
 </head>
@@ -543,6 +593,13 @@ label {
   <textarea id="cartaSimples" placeholder="Escreva sua carta simples..."></textarea>
 
   <button onclick="enviarCarta('simples')">Enviar Carta</button>
+</div>
+<!-- Modal de Sucesso -->
+<div id="sucessoModal" class="modal">
+  <div class="modal-content">
+    <p id="modalMensagem">Pagamento Premium simulado com sucesso! 🔥<br>(Em breve, integre com o link real do pagamento)</p>
+    <button onclick="fecharModal()">OK</button>
+  </div>
 </div>
 
     <section class="card premium">
@@ -600,7 +657,7 @@ label {
       <div id="resultadoPremium" class="resultado" style="display: none;"></div>
     </div>
   </div>
-  
+
 <script>
   let cartas = [];
 
@@ -749,6 +806,27 @@ window.onload = coracoesIniciais;
 
       window.open(url, '_blank');
     }
+    // Mostrar Modal de Sucesso
+function mostrarModal(mensagem) {
+  document.getElementById('modalMensagem').innerHTML = mensagem;
+  document.getElementById('sucessoModal').style.display = 'block';
+}
+
+function fecharModal() {
+  document.getElementById('sucessoModal').style.display = 'none';
+}
+
+// Substituindo alert()
+function realizarPagamento() {
+  const nome = document.getElementById('nomePremium').value;
+  const mensagem = document.getElementById('mensagemPremium').value;
+  if (nome && mensagem) {
+    mostrarModal("Pagamento Premium simulado com sucesso! 🔥<br>(Em breve, integre com o link real do pagamento)");
+  } else {
+    mostrarModal("Por favor, preencha todos os campos da carta premium.");
+  }
+}
+
 </script>
 </body>
 </html>
