@@ -585,7 +585,22 @@ label {
     <button onclick="voltar()">⬅ Voltar</button>
   </div>
 </section>
+<div class="container">
+    <div class="card">
+      <div class="premium-label">Premium</div>
+      <h2>Carta Premium</h2>
+      <label for="nomePremium">Seu Nome:</label>
+      <input type="text" id="nomePremium" placeholder="Ex: Maria">
+      <label for="mensagemPremium">Mensagem Premium:</label>
+      <textarea id="mensagemPremium" placeholder="Uma mensagem inesquecível..."></textarea>
 
+      <button class="btn-pagar" onclick="pagarPremium()">Realizar Pagamento</button>
+      <button class="btn-whatsapp" onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+
+      <div id="resultadoPremium" class="resultado" style="display: none;"></div>
+    </div>
+  </div>
+  
 <script>
   let cartas = [];
 
@@ -716,7 +731,24 @@ function coracoesIniciais() {
 
 // Inicia ao carregar a página
 window.onload = coracoesIniciais;
+   function pagarPremium() {
+      alert("Pagamento Premium simulado com sucesso! 💰\n(Em breve, integre com o link real do pagamento)");
+    }
 
+    function enviarWhatsApp() {
+      const nome = document.getElementById('nomePremium').value.trim();
+      const mensagem = document.getElementById('mensagemPremium').value.trim();
+
+      if (!nome || !mensagem) {
+        alert("Por favor, preencha todos os campos antes de enviar pelo WhatsApp!");
+        return;
+      }
+
+      const texto = `💎 Carta Premium de ${nome}%0A%0A${mensagem}%0A%0AEnviado com carinho via Correio Romântico 💌`;
+      const url = `https://wa.me/?text=${texto}`;
+
+      window.open(url, '_blank');
+    }
 </script>
 </body>
 </html>
